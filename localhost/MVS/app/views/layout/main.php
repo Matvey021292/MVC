@@ -8,7 +8,11 @@
     <title>Document</title>
 </head>
 <body>
-<h1><?= $content ?></h1>
+<?=$content?>
 
+
+<?php
+$this->renderJs();
+?>
 </body>
 </html>

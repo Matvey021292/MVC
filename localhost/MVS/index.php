@@ -12,14 +12,18 @@ use core\exceptions\NotFoundHttpException;
 
     if (is_null($controller)){
         $controller = 'MainController';
+
     }else{
         $controller = ucfirst(strtolower($controller)). 'Controller';
     }
 
+
     if (is_null($action)){
         $action = 'actionIndex';
+
     }else{
-        $action = ucfirst(strtolower($action)). 'action';
+        $action = 'action' .ucfirst(strtolower($action));
+
     }
 
     try {
@@ -28,16 +32,18 @@ use core\exceptions\NotFoundHttpException;
             throw new NotFoundHttpException('Page Not Found');
 
         }
+
         $controller = 'app\controllers\\' . $controller;
+
         $controller = new $controller();
 
-        if (method_exists($controller, $action)) {
 
-            throw new NotFoundHttpException('Page Not Found');
+        if (!method_exists($controller, $action)) {
+            throw new NotFoundHttpException('Page2 Not Found');
 
         }
 
-        $output = $controller->$action;
+        $output = $controller->$action();
         echo $output;
 
     }catch(NotFoundHttpException $e){
